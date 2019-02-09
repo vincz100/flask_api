@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort
 
 app = Flask(__name__)
 
@@ -23,6 +23,24 @@ def index():                                # vue index
 @app.route('/api/territoires', methods=['GET'])
 def get_territoires():
     return jsonify({'territoires': territoires})
+
+@app.route('/api/territoires/<string:codgeo>', methods=['GET'])
+
+# def get_territoire(codgeo):
+#     territoire = []
+#     for terriroire in territoires:
+#         if territoire['codgeo'] == codgeo:
+#             return jsonify({'territoires': territoire[0]})
+#         if len(territoire) == 0:
+#             abort(404)
+
+
+def get_territoire(codgeo):
+    territoire = [territoire for territoire in territoires if territoire['codgeo'] == codgeo]
+    if len(territoire) == 0:
+        abort(404)
+    return jsonify({'territoires': territoire[0]})
+
 
 @app.route('/contact')
 def contact():
