@@ -31,7 +31,7 @@ def index():                                # vue index
 def get_territoires():
     return jsonify({'territoires': territoires})
 
-@app.route('/api/territoires/<string:codgeo>', methods=['GET'])                                     # on récupère un string et pas un int
+@app.route('/api/territoires/<string:codgeo>', methods=['GET'])                                     # on récupère un string (int / float / path / uid)
 def get_territoire(codgeo):
     territoire = [territoire for territoire in territoires if territoire['codgeo'] == codgeo]
     if len(territoire) == 0:
